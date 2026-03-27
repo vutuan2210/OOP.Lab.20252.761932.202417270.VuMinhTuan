@@ -1,0 +1,11 @@
+Câu 6.1:
+- Nếu users chọn "Cancel", do chương trình chưa xử lí lựa chọn Cancel nên sẽ tự động hiện là đã chọn No.
+- Nếu muốn đổi thành chỉ có lựa chọn YES và NO, phải đổi thành:
+        int option = JOptionPane.showConfirmDialog(null, "Do you want to change to the first class ticket?", "Confirm", JOptionPane.YES_NO_OPTION);
+ 
+  Nếu muốn custom options(ví dụ: I do và I don't), phải đổi thành
+        Object[] options = {"I do", "I don't"};
+        int option = JOptionPane.showOptionDialog(null, "Do you want to change to the first class ticket?", "Custom option", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+        String result = options[option].toString();
+
+        JOptionPane.showMessageDialog(null, "You have chosen: " + result);
