@@ -1,4 +1,4 @@
-package SourceCode;
+package hust.soict.dsai.aims.disc;
 
 public class DigitalVideoDisc {
     // Class member (static) - count total DVDs created
