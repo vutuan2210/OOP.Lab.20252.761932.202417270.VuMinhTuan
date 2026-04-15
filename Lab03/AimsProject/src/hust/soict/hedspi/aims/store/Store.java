@@ -1,6 +1,6 @@
-package hust.soict.dsai.aims.store;
+package hust.soict.hedspi.aims.store;
 
-import hust.soict.dsai.aims.disc.DigitalVideoDisc;
+import hust.soict.hedspi.aims.disc.DigitalVideoDisc;
 
 public class Store {
     public static final int MAX_ITEMS_IN_STORE = 100;
@@ -64,3 +64,4 @@ public class Store {
         return null;
     }
 }
+

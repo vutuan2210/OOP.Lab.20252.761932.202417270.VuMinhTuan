@@ -1,4 +1,4 @@
-package hust.soict.dsai.garbage;
+package hust.soict.hedspi.garbage;
 
 /**
  * Demonstrates garbage creation and memory degradation when using String concatenation
@@ -69,3 +69,4 @@ public class GarbageCreator {
         }
     }
 }
+

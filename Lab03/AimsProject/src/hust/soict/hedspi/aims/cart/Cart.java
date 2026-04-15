@@ -1,6 +1,6 @@
-package hust.soict.dsai.aims.cart;
+package hust.soict.hedspi.aims.cart;
 
-import hust.soict.dsai.aims.disc.DigitalVideoDisc;
+import hust.soict.hedspi.aims.disc.DigitalVideoDisc;
 
 public class Cart {
 
@@ -112,3 +112,4 @@ public class Cart {
         }
     }
 }
+

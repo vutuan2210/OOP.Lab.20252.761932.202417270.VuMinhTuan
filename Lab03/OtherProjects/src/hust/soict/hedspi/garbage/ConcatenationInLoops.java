@@ -1,4 +1,4 @@
-package hust.soict.dsai.garbage;
+package hust.soict.hedspi.garbage;
 
 /**
  * Demonstrates the performance difference between string concatenation approaches
@@ -98,3 +98,4 @@ public class ConcatenationInLoops {
         }
     }
 }
+
