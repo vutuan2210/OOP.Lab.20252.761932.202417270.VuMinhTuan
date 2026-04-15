@@ -1,4 +1,4 @@
-package hust.soict.dsai.garbage;
+package hust.soict.hedspi.garbage;
 
 /**
  * Solution to the garbage creation problem: use StringBuffer instead of String concatenation
@@ -89,3 +89,4 @@ public class NoGarbage {
         }
     }
 }
+

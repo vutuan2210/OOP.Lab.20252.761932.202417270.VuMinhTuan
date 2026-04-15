@@ -1,4 +1,4 @@
-package hust.soict.dsai.aims.disc;
+package hust.soict.hedspi.aims.disc;
 
 public class DigitalVideoDisc {
     // Class member (static) - count total DVDs created
@@ -90,3 +90,4 @@ public class DigitalVideoDisc {
         return "DVD - " + title + " - " + category + " - " + director + " - " + length + ": " + cost + " $";
     }
 }
+
