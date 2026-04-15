@@ -26,12 +26,13 @@ public class Aims {
         // Varargs overload
         anOrder.addDigitalVideoDisc(dvd4);
 
-        System.out.println("Total cost before removal:");
-        System.out.println(anOrder.totalCost());
+        // Print cart
+        anOrder.printCart();
 
+        System.out.println("\nRemoving dvd2...\n");
         anOrder.removeDigitalVideoDisc(dvd2);
 
-        System.out.println("Total cost after removal:");
-        System.out.println(anOrder.totalCost());
+        // Print cart after removal
+        anOrder.printCart();
     }
 }
