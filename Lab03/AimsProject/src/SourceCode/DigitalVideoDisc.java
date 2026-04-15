@@ -1,6 +1,11 @@
 package SourceCode;
 
 public class DigitalVideoDisc {
+    // Class member (static) - count total DVDs created
+    private static int nbDigitalVideoDiscs = 0;
+    
+    // Instance members
+    private int id;
     private String title;
     private String category;
     private String director;
@@ -10,6 +15,7 @@ public class DigitalVideoDisc {
     // Constructor 1: Create by title
     public DigitalVideoDisc(String title) {
         this.title = title;
+        this.id = ++nbDigitalVideoDiscs;
     }
 
     // Constructor 2: Create by category, title, cost
@@ -17,6 +23,7 @@ public class DigitalVideoDisc {
         this.category = category;
         this.title = title;
         this.cost = cost;
+        this.id = ++nbDigitalVideoDiscs;
     }
 
     // Constructor 3: Create by director, category, title, cost
@@ -25,6 +32,7 @@ public class DigitalVideoDisc {
         this.category = category;
         this.title = title;
         this.cost = cost;
+        this.id = ++nbDigitalVideoDiscs;
     }
 
     // Constructor 4: Create by all attributes
@@ -34,9 +42,18 @@ public class DigitalVideoDisc {
         this.director = director;
         this.length = length;
         this.cost = cost;
+        this.id = ++nbDigitalVideoDiscs;
     }
 
     // Getter
+    public int getId() {
+        return id;
+    }
+
+    public static int getNbDigitalVideoDiscs() {
+        return nbDigitalVideoDiscs;
+    }
+
     public String getTitle() {
         return title;
     }
