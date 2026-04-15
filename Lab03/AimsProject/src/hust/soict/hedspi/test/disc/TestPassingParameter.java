@@ -1,6 +1,6 @@
-package hust.soict.dsai.test.disc;
+package hust.soict.hedspi.test.disc;
 
-import hust.soict.dsai.aims.disc.DigitalVideoDisc;
+import hust.soict.hedspi.aims.disc.DigitalVideoDisc;
 
 public class TestPassingParameter {
 
@@ -53,3 +53,4 @@ public class TestPassingParameter {
         dvd.setTitle(title);
     }
 }
+
