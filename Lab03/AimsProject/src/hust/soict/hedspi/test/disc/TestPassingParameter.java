@@ -42,6 +42,7 @@ public class TestPassingParameter {
         DigitalVideoDisc temp = dvd1;
         dvd1 = dvd2;
         dvd2 = temp;
+        System.out.println("Inside swap method: " + dvd1.getTitle() + ", " + dvd2.getTitle());
     }
 
     // Correct approach: return swapped references and assign them in the caller.

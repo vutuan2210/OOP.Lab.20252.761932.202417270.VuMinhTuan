@@ -29,11 +29,11 @@ public class NoGarbage {
         System.out.println("Result length: " + largeString.length());
         
         System.out.println("\n=== Solution Benefits ===");
-        System.out.println("✓ StringBuffer reuses internal character array");
-        System.out.println("✓ No temporary String objects created");
-        System.out.println("✓ Much faster (100-1000x for large strings)");
-        System.out.println("✓ Minimal garbage created");
-        System.out.println("✓ Lower memory pressure on GC");
+        System.out.println("- StringBuffer reuses internal character array");
+        System.out.println("- No temporary String objects created");
+        System.out.println("- Much faster for large strings");
+        System.out.println("- Minimal garbage created");
+        System.out.println("- Lower memory pressure on GC");
         
         // Compare with GarbageCreator approach
         System.out.println("\n=== Comparison ===");
@@ -52,18 +52,6 @@ public class NoGarbage {
      */
     private static String createLargeStringWithStringBuffer(int length) {
         StringBuffer sb = new StringBuffer();
-        for (int i = 0; i < length; i++) {
-            sb.append("*"); // Appends to same buffer, no new String objects
-        }
-        return sb.toString(); // Only creates ONE final String
-    }
-    
-    /**
-     * Alternative: Using StringBuilder (not thread-safe but slightly faster)
-     * For single-threaded code, StringBuilder is the preferred choice over StringBuffer
-     */
-    private static String createLargeStringWithStringBuilder(int length) {
-        StringBuilder sb = new StringBuilder();
         for (int i = 0; i < length; i++) {
             sb.append("*"); // Appends to same buffer, no new String objects
         }
