@@ -1,0 +1,33 @@
+Lab03 - Answers
+
+Q1. Try to add a method addDigitalVideoDisc which allows to pass an arbitrary number of arguments for dvd. Compare to an array parameter. What do you prefer in this case?
+
+Trả lời:
+Em thích sử dụng varargs (DigitalVideoDisc... dvdList) hơn so với array parameter. Lý do là:
+- Varargs cho phép gọi hàm linh hoạt hơn: có thể truyền từng DVD riêng lẻ (addDVD(dvd1, dvd2, dvd3)) hoặc một mảng DVD (addDVD(dvdArray)).
+- Code gọi hàm ngắn gọn, dễ đọc và tự nhiên hơn.
+- Nội bộ Java vẫn chuyển varargs thành mảng, nên cách hoạt động tương tự.
+Tuy nhiên, nếu dữ liệu đã có sẵn dưới dạng mảng, array parameter vẫn hữu ích.
+
+Q2. After the call of swap(jungleDVD, cinderellaDVD) why does the title of these two objects still remain? After the call of changeTitle(jungleDVD, cinderellaDVD.getTitle()) why is the title of the JungleDVD changed?
+
+Trả lời:
+Java luôn truyền tham số theo giá trị (pass-by-value). Khi truyền đối tượng, Java truyền một bản sao của tham chiếu (reference) chứ không truyền chính đối tượng.
+- Với swap(): Hàm nhận được hai bản sao của tham chiếu dvd1 và dvd2. Khi swap đổi chỗ hai tham chiếu bên trong hàm, điều này chỉ ảnh hưởng tới các bản sao cục bộ. Tham chiếu gốc của jungleDVD và cinderellaDVD ở phía gọi vẫn không thay đổi.
+
+- Với changeTitle(): Hàm nhận được một bản sao của tham chiếu dvd. Dù là bản sao, nó vẫn chỉ tới cùng một đối tượng DigitalVideoDisc trong bộ nhớ. Khi gọi setTitle() thông qua bản sao này, nó thay đổi trạng thái của đối tượng gốc. Do đó, jungleDVD.getTitle() sẽ trả về giá trị đã thay đổi.
+
+Q3. Please write a swap() method that can correctly swap the two objects.
+
+Trả lời:
+Vì Java là pass-by-value, không thể thực hiện swap truyền thống bên trong hàm. Cách khắc phục là:
+
+Trả về mảng hoặc đối tượng chứa kết quả, sau đó gán lại ở nơi gọi:
+public static DigitalVideoDisc[] swapCorrectly(DigitalVideoDisc dvd1, DigitalVideoDisc dvd2) {
+    return new DigitalVideoDisc[] { dvd2, dvd1 };
+}
+// Gọi ở main:
+DigitalVideoDisc[] swapped = swapCorrectly(jungleDVD, cinderellaDVD);
+jungleDVD = swapped[0];
+cinderellaDVD = swapped[1];
+
