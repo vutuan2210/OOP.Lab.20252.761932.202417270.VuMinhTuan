@@ -10,16 +10,6 @@
 .project
 .classpath
 
-# Keep shared Eclipse metadata for the two lab projects
-!AimsProject/.project
-!AimsProject/.classpath
-!AimsProject/.settings/
-!AimsProject/.settings/org.eclipse.jdt.core.prefs
-!OtherProjects/.project
-!OtherProjects/.classpath
-!OtherProjects/.settings/
-!OtherProjects/.settings/org.eclipse.jdt.core.prefs
-
 # Local editor/OS artifacts
 .vscode/
 *.log
