@@ -1,36 +1,33 @@
+
 package hust.soict.hedspi.test.store;
 
-import hust.soict.hedspi.aims.disc.DigitalVideoDisc;
+import hust.soict.hedspi.aims.media.DigitalVideoDisc;
 import hust.soict.hedspi.aims.store.Store;
 
 public class StoreTest {
     public static void main(String[] args) {
         Store store = new Store();
 
-        DigitalVideoDisc dvd1 = new DigitalVideoDisc("The Lion King", "Animation", "Roger Allers", 87, 19.95f);
-        DigitalVideoDisc dvd2 = new DigitalVideoDisc("Star Wars", "Science Fiction", "George Lucas", 87, 24.95f);
-        DigitalVideoDisc dvd3 = new DigitalVideoDisc("Aladin", "Animation", 18.99f);
-        DigitalVideoDisc dvd4 = new DigitalVideoDisc("The Godfather", "Crime", "Francis Ford Coppola", 175, 21.99f);
+        DigitalVideoDisc dvd1 = new DigitalVideoDisc(
+                "Interstellar", "Sci-Fi", "Christopher Nolan", 169, 17.5f);
+        DigitalVideoDisc dvd2 = new DigitalVideoDisc(
+                "Toy Story", "Animation", "John Lasseter", 81, 9.5f);
+        DigitalVideoDisc dvd3 = new DigitalVideoDisc(
+                "Parasite", "Drama", "Bong Joon-ho", 132, 12.0f);
 
-        System.out.println("Adding DVDs to store...\n");
-        store.addDVD(dvd1);
-        store.addDVD(dvd2);
-        store.addDVD(dvd3);
-        store.addDVD(dvd4);
+        store.addMedia(dvd1);
+        store.addMedia(dvd2);
+        store.addMedia(dvd3);
 
-        System.out.println("\nStore inventory:");
-        store.printStore();
+        System.out.println("Store after adding:");
+        store.displayStore();
 
-        System.out.println("\nRemoving dvd2 from store...\n");
-        store.removeDVD(dvd2);
+        store.removeMedia(dvd2);
+        System.out.println("\nStore after removing Toy Story:");
+        store.displayStore();
 
-        System.out.println("\nStore inventory after removal:");
-        store.printStore();
-
-        System.out.println("\nTrying to remove dvd2 again (should not be found):\n");
-        store.removeDVD(dvd2);
-
-        System.out.println("\nTotal DVDs in store: " + store.getQtyInStore());
+        System.out.println("\nFind media by title keyword 'paras':");
+        System.out.println(store.findMediaByTitle("paras"));
     }
 }
 

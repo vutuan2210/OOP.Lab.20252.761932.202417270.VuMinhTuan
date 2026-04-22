@@ -1,57 +1,44 @@
 package hust.soict.hedspi.test.disc;
 
-import hust.soict.hedspi.aims.disc.DigitalVideoDisc;
+import hust.soict.hedspi.aims.media.DigitalVideoDisc;
 
 public class TestPassingParameter {
 
     public static void main(String[] args) {
+        DigitalVideoDisc first = new DigitalVideoDisc("Jungle");
+        DigitalVideoDisc second = new DigitalVideoDisc("Cinderella");
 
-        DigitalVideoDisc jungleDVD = new DigitalVideoDisc(
-                "Jungle", "Adventure", "Someone", 120, 10.0f);
+        swap(first, second);
+        System.out.println("After swap (FAIL - pass by value):");
+        System.out.println("first title  = " + first.getTitle());
+        System.out.println("second title = " + second.getTitle());
 
-        DigitalVideoDisc cinderellaDVD = new DigitalVideoDisc(
-                "Cinderella", "Animation", "Disney", 90, 12.0f);
+        DigitalVideoDisc[] firstRef = { new DigitalVideoDisc("Jungle") };
+        DigitalVideoDisc[] secondRef = { new DigitalVideoDisc("Cinderella") };
 
-        System.out.println("Before swap:");
-        System.out.println("jungleDVD title: " + jungleDVD.getTitle());
-        System.out.println("cinderellaDVD title: " + cinderellaDVD.getTitle());
-
-        swap(jungleDVD, cinderellaDVD);
-
-        System.out.println("After swap(jungleDVD, cinderellaDVD):");
-        System.out.println("jungleDVD title: " + jungleDVD.getTitle());
-        System.out.println("cinderellaDVD title: " + cinderellaDVD.getTitle());
-
-        DigitalVideoDisc[] swapped = swapCorrectly(jungleDVD, cinderellaDVD);
-        jungleDVD = swapped[0];
-        cinderellaDVD = swapped[1];
-
-        System.out.println("After swapCorrectly and re-assignment:");
-        System.out.println("jungleDVD title: " + jungleDVD.getTitle());
-        System.out.println("cinderellaDVD title: " + cinderellaDVD.getTitle());
-
-        changeTitle(jungleDVD, cinderellaDVD.getTitle());
-
-        System.out.println("After changing title:");
-        System.out.println("jungleDVD title: " + jungleDVD.getTitle());
-        System.out.println("cinderellaDVD title: " + cinderellaDVD.getTitle());
+        trySwap(firstRef, secondRef);
+        System.out.println("After trySwap (SUCCESS - using array wrapper):");
+        System.out.println("first title  = " + firstRef[0].getTitle());
+        System.out.println("second title = " + secondRef[0].getTitle());
     }
 
-    // This does not swap caller references because Java is pass-by-value.
-    public static void swap(DigitalVideoDisc dvd1, DigitalVideoDisc dvd2) {
-        DigitalVideoDisc temp = dvd1;
-        dvd1 = dvd2;
-        dvd2 = temp;
-        System.out.println("Inside swap method: " + dvd1.getTitle() + ", " + dvd2.getTitle());
+    public static void trySwap(DigitalVideoDisc[] left, DigitalVideoDisc[] right) {
+        DigitalVideoDisc temp = left[0];
+        left[0] = right[0];
+        right[0] = temp;
     }
 
-    // Correct approach: return swapped references and assign them in the caller.
-    public static DigitalVideoDisc[] swapCorrectly(DigitalVideoDisc dvd1, DigitalVideoDisc dvd2) {
-        return new DigitalVideoDisc[] { dvd2, dvd1 };
+    public static void swap(DigitalVideoDisc first, DigitalVideoDisc second) {
+        DigitalVideoDisc temp = first;
+        first = second;
+        second = temp;
+        System.out.println("Inside swap (local only): first=" + first.getTitle() + ", second=" + second.getTitle());
     }
 
-    public static void changeTitle(DigitalVideoDisc dvd, String title) {
+    public static void rename(DigitalVideoDisc dvd, String title) {
+        String previous = dvd.getTitle();
         dvd.setTitle(title);
+        DigitalVideoDisc replacedLocally = new DigitalVideoDisc(previous);
+        System.out.println("Inside rename (local replacement): " + replacedLocally.getTitle());
     }
 }
-
