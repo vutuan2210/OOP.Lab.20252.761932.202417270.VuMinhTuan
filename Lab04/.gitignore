@@ -1,0 +1,15 @@
+# Java/Eclipse build artifacts
+**/bin/
+**/*.class
+
+# Eclipse IDE metadata generated locally
+.settings/
+.project
+.classpath
+
+# Local editor/OS artifacts
+.vscode/
+*.log
+
+# Lab handout/reference files (not source submission)
+OOP-Lab04-InheritancePolymorphism.pdf

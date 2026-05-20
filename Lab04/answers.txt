@@ -1,0 +1,56 @@
+1. Which classes are aggregates of other classes?
+
+- `Store` tổng hợp các đối tượng `Media` trong `ArrayList<Media>` tên là `itemsInStore`.
+- `Cart` tổng hợp các đối tượng `Media` trong `ArrayList<Media>` tên là `itemsOrdered`.
+- `Book` tổng hợp các tác giả trong `ArrayList<String>` tên là `authors`.
+- `CompactDisc` tổng hợp các `Track` trong `ArrayList<Track>` tên là `tracks`.
+
+2. Checking constructors of whole classes and parent classes
+
+- `Media` là lớp trừu tượng cha, khởi tạo các trường chung `id`, `title`, `category`, và `cost`.
+- `Disc` là lớp cha trung gian cho các loại đĩa, khởi tạo `director` và `length` và gọi `super(...)` để khởi tạo các trường chung.
+- Constructor của `Book` gọi `super(...)` để khởi tạo các trường kế thừa và khởi tạo bộ sưu tập `authors`.
+- Constructor của `DigitalVideoDisc` gọi `super(...)` để khởi tạo các trường kế thừa; `director` và `length` được khởi tạo thông qua chuỗi constructor của `Disc`.
+- Constructor của `CompactDisc` gọi `super(...)` để khởi tạo các trường kế thừa và khởi tạo `artist`; bộ sưu tập `tracks` được tạo ngay khi khai báo trường.
+- `Track` là lớp độc lập, constructor khởi tạo `title` và `length`.
+
+3. Redundant setter methods
+
+- Đã loại bỏ `Store.setItemsInStore()` vì `Store` quản lý danh sách nội bộ của chính nó.
+- Đã loại bỏ `Media.setId()` vì `id` được gán một lần khi đối tượng được tạo.
+- Đã loại bỏ các setter thừa ở lớp con khi các giá trị đã được thiết lập bởi constructor:
+	- `Disc.setDirector()`
+	- `Disc.setLength()`
+	- `DigitalVideoDisc.setDirector()`
+	- `DigitalVideoDisc.setLength()`
+	- `CompactDisc.setArtist()`
+- Chỉ giữ lại các setter hữu ích cho trạng thái chung trong `Media`:
+	- `setTitle()`
+	- `setCategory()`
+	- `setCost()`
+
+4. Polymorphism with toString() method
+
+- Quan sát và giải thích (tiếng Việt):
+	- Khi gọi `m.toString()` trên một tham chiếu kiểu `Media`, Java sẽ gọi phương thức `toString()` đã được override ở lớp thực tế của đối tượng (ví dụ `CompactDisc.toString()`, `DigitalVideoDisc.toString()`, `Book.toString()`).
+	- Đây là ví dụ về đa hình (polymorphism) ở cấp hành vi: phương thức được chọn tại runtime dựa trên kiểu thực tế của đối tượng, không phải kiểu tham chiếu.
+	- Kết quả: mỗi loại media in ra chuỗi thông tin phù hợp với lớp con tương ứng (CD hiển thị artist và tổng thời lượng; DVD hiển thị director và length; Book hiển thị tác giả), mặc dù danh sách được khai báo là `List<Media>`.
+
+5. Sort media in the cart — Comparable approach
+
+- **Class nào nên implement `Comparable`?**
+	- Nên cho `Media` implement `Comparable<Media>` nếu bạn muốn định nghĩa một *natural ordering* chung cho tất cả các mục trong giỏ. Việc này cho phép sắp xếp danh sách `Media` mặc định bằng `Collections.sort(list)`.
+
+- **`compareTo()` nên được implement như thế nào để phản ánh thứ tự mong muốn?**
+	- Nếu thứ tự muốn là **theo title rồi cost**: trong `Media.compareTo(Media other)` so sánh title (ignore-case) trước; nếu bằng nhau thì so sánh `cost` sao cho media có giá cao hơn đứng trước (tức compare cost theo thứ tự giảm dần: `Float.compare(other.getCost(), this.getCost())`).
+	- Nếu thứ tự là **theo cost rồi title**: so sánh `cost` trước (giảm dần), nếu bằng thì so sánh title tăng dần (ignore-case).
+
+- **Có thể có hai luật sắp xếp (title→cost và cost→title) nếu dùng `Comparable` không?**
+	- Không. `Comparable` chỉ cho một *natural ordering* duy nhất thông qua `compareTo()`. Nếu cần nhiều cách sắp xếp, phải dùng `Comparator` (như chúng ta đã làm) và truyền comparator vào `Collections.sort()`.
+
+- **Nếu DVD có luật sắp xếp khác (title, rồi decreasing length, rồi cost) thì làm sao?**
+	- Giải pháp khuyến nghị: giữ `Media.compareTo()` cho thứ tự chung, và tạo một `Comparator<DigitalVideoDisc>` riêng để sắp xếp DVD theo luật đặc thù khi cần (ví dụ `DVDComparatorByTitleLengthCost`). Khi muốn sắp DVD, gọi `Collections.sort(dvdList, new DVDComparatorByTitleLengthCost())`.
+	- Thay thế (ít khuyến nghị): cho `DigitalVideoDisc` override `compareTo()` để thực hiện luật riêng; nhưng phải rất cẩn thận để giữ tính toàn vẹn của so sánh (so sánh phải nhất quán, bắc cầu/transitive) khi so sánh giữa `DigitalVideoDisc` và các `Media` khác — điều này dễ gây lỗi nếu không xử lý kỹ (ví dụ: khi so DVD với Book, có thể cần ủy quyền về `Media.compareTo()` hoặc định nghĩa rõ luật so sánh chéo kiểu).
+
+Tóm lại: dùng `Comparable` cho một thứ tự mặc định; dùng `Comparator` khi cần nhiều luật sắp xếp hoặc khi một subtype cần luật riêng.
+
