@@ -1,0 +1,54 @@
+Lab05 - Answers
+
+Q1. So sánh các thành phần của Swing và AWT (Top-level containers, tên lớp component, xử lý sự kiện và giao diện hiển thị).
+
+Trả lời:
+
+1. Compare Swing and AWT elements (Top-level containers, Component class names, Event-handling, and Appearance).
+
+* Trong AWT, các container cấp cao thường được sử dụng là Frame, Dialog và Window. Những thành phần này thuộc loại heavyweight component vì chúng sử dụng trực tiếp tài nguyên giao diện của hệ điều hành.
+* Đối với Swing, các container tương ứng là JFrame, JDialog và JWindow. Chúng được thiết kế với cấu trúc gồm Root Pane và Content Pane, giúp việc quản lý và tùy chỉnh giao diện trở nên linh hoạt hơn.
+
+2. What happens when you don't update callers to catch checked exceptions thrown by the play() method?
+
+* AWT cung cấp các lớp như Button, Label, TextField, Checkbox,...
+* Swing sử dụng các lớp có tiền tố "J" như JButton, JLabel, JTextField, JCheckBox,... Phần lớn các component của Swing là lightweight component, được vẽ bằng Java thay vì phụ thuộc hoàn toàn vào giao diện gốc của hệ điều hành.
+
+3. Cơ chế xử lý sự kiện
+
+* Cả AWT và Swing đều áp dụng mô hình Delegation Event Model, trong đó các sự kiện được xử lý thông qua các Listener như ActionListener, MouseListener,...
+* Swing kế thừa cơ chế này từ AWT nhưng chú trọng hơn đến việc sử dụng Event Dispatch Thread (EDT). Các thao tác cập nhật giao diện nên được thực hiện trên EDT để đảm bảo tính ổn định và an toàn luồng của chương trình.
+
+4. Giao diện hiển thị (Appearance)
+
+* AWT sử dụng giao diện mặc định của hệ điều hành, vì vậy cùng một ứng dụng có thể có hình thức khác nhau trên các nền tảng khác nhau.
+* Swing hỗ trợ cơ chế Pluggable Look and Feel (PLAF), cho phép thay đổi giao diện của ứng dụng mà không cần chỉnh sửa chức năng bên trong. Điều này giúp ứng dụng có thể duy trì sự nhất quán hoặc tùy biến theo nhu cầu của người phát triển.
+
+5. Kết luận
+
+* AWT phù hợp với các ứng dụng đơn giản, yêu cầu ít thành phần giao diện và tận dụng giao diện gốc của hệ điều hành.
+* Swing cung cấp nhiều component hơn, khả năng tùy biến mạnh mẽ hơn và giao diện linh hoạt hơn. Vì vậy, Swing thường được lựa chọn để phát triển các ứng dụng desktop Java hiện đại.
+
+Q2. Điều gì xảy ra nếu không cập nhật các phương thức gọi để xử lý checked exception do phương thức play() ném ra?
+
+Trả lời:
+
+* Khi phương thức play() khai báo ném ra một checked exception, ví dụ như PlayerException, các phương thức gọi nó bắt buộc phải xử lý ngoại lệ bằng khối try-catch hoặc tiếp tục khai báo throws.
+* Nếu không thực hiện một trong hai cách trên, trình biên dịch Java sẽ phát sinh lỗi biên dịch. Chương trình sẽ không thể được biên dịch thành công do ngoại lệ chưa được xử lý hoặc khai báo chuyển tiếp.
+
+Q3. Exception Hierarchical Tree in Aims Project.
+
+Trả lời:
+
+Cấu trúc kế thừa các ngoại lệ được xây dựng trong dự án AIMS như sau:
+
+java.lang.Throwable
+└── java.lang.Exception
+├── PlayerException
+└── LimitExceededException
+
+Trong đó:
+
+* PlayerException được sử dụng để thông báo các lỗi liên quan đến quá trình phát media, chẳng hạn như thời lượng media không hợp lệ.
+* LimitExceededException được ném ra khi số lượng phần tử trong giỏ hàng vượt quá giới hạn cho phép.
+* Vì cả hai lớp đều kế thừa từ Exception nên chúng thuộc nhóm checked exception. Do đó, các phương thức có khả năng phát sinh những ngoại lệ này phải xử lý bằng try-catch hoặc khai báo throws để chuyển tiếp ngoại lệ.

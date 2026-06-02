@@ -1,0 +1,19 @@
+This is a test file to demonstrate the performance difference between
+String concatenation using the + operator and StringBuffer/StringBuilder.
+
+When you read this file with GarbageCreator using the + operator,
+you will notice a significant performance degradation compared to NoGarbage
+which uses StringBuffer.
+
+The larger the file, the more dramatic the difference becomes.
+For a 1MB file, the + operator approach might take several seconds or even
+hang the program due to excessive garbage collection, while StringBuffer
+completes in milliseconds.
+
+This demonstrates a fundamental principle of Java programming:
+- Use + operator for simple string concatenation (a few times)
+- Use StringBuilder for multiple concatenations in loops (single-threaded)
+- Use StringBuffer when thread-safety is required
+
+Remember: Each s += operation creates a new String object and discards the old one.
+For N concatenations, this creates N new objects - massive garbage collection overhead!
